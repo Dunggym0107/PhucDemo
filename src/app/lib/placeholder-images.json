@@ -1,0 +1,28 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-dashboard",
+      "description": "Abstract dashboard visualization",
+      "imageUrl": "https://picsum.photos/seed/progress-flow/1200/800",
+      "imageHint": "abstract dashboard"
+    },
+    {
+      "id": "user-avatar-1",
+      "description": "Team member profile",
+      "imageUrl": "https://picsum.photos/seed/user1/200/200",
+      "imageHint": "professional avatar"
+    },
+    {
+      "id": "user-avatar-2",
+      "description": "Team member profile",
+      "imageUrl": "https://picsum.photos/seed/user2/200/200",
+      "imageHint": "professional avatar"
+    },
+    {
+      "id": "user-avatar-3",
+      "description": "Team member profile",
+      "imageUrl": "https://picsum.photos/seed/user3/200/200",
+      "imageHint": "professional avatar"
+    }
+  ]
+}
