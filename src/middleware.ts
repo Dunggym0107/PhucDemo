@@ -53,23 +53,12 @@ export async function middleware(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Helper: tạo redirect response nhưng vẫn mang theo cookie đã được
-  // Supabase làm mới (refresh) ở trên — thiếu bước này gây vòng lặp redirect
-  // vì trình duyệt giữ cookie cũ đã hết hạn.
-  const redirectWithCookies = (url: URL) => {
-    const redirectResponse = NextResponse.redirect(url)
-    response.cookies.getAll().forEach((cookie) => {
-      redirectResponse.cookies.set(cookie)
-    })
-    return redirectResponse
-  }
-
   // Chưa đăng nhập mà truy cập dashboard → đẩy về login
   if (!user && isDashboard) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     url.searchParams.set('redirect', pathname)
-    return redirectWithCookies(url)
+    return NextResponse.redirect(url)
   }
 
   // Đã đăng nhập nhưng tài khoản chưa kích hoạt → chặn dashboard.
@@ -105,7 +94,7 @@ export async function middleware(request: NextRequest) {
       const url = request.nextUrl.clone()
       url.pathname = '/login'
       url.searchParams.set('pending', '1')
-      const redirect = redirectWithCookies(url)
+      const redirect = NextResponse.redirect(url)
       redirect.cookies.delete(ACTIVE_COOKIE)
       return redirect
     }
@@ -115,7 +104,7 @@ export async function middleware(request: NextRequest) {
   if (user && (pathname === '/' || pathname === '/login')) {
     const url = request.nextUrl.clone()
     url.pathname = '/dashboard'
-    return redirectWithCookies(url)
+    return NextResponse.redirect(url)
   }
 
   return response
